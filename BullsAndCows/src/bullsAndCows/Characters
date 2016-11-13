@@ -1,0 +1,27 @@
+package bullsAndCows;
+
+import java.util.Random;
+
+class Characters extends Guess<Character>
+{
+	Characters(int n)
+	{
+		super(n);
+		alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	}
+
+	@Override
+	void generateRandom()
+	{
+		Random random = new Random();
+		for (int i = 0; i < guessLength;)
+		{
+			char rand = alphabet.charAt(random.nextInt(52));
+			if (!symbols.contains(rand))
+			{
+				symbols.add(rand);
+				++i;
+			}
+		}
+	}
+}
