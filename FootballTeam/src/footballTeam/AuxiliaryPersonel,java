@@ -1,0 +1,29 @@
+package footballTeam;
+
+import java.time.*;
+
+class AuxiliaryPersonel extends Employee
+{
+	String position;
+	int yearsInTeam;
+	
+	AuxiliaryPersonel(String name, int age, LocalDate contrExpDate, String pos, int yit)
+	{
+		super(name, age, contrExpDate, 1_000);
+		position = pos;
+		yearsInTeam = yit;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return super.toString() + " " + position + " " + Integer.toString(yearsInTeam);
+	}
+	
+	@Override
+	double getSalary()
+	{
+		return baseSalary * (1 + yearsInTeam * 0.05);
+	}
+
+}
