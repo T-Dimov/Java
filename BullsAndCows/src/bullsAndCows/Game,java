@@ -1,0 +1,89 @@
+package bullsAndCows;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Game
+{
+	private Guess guess;
+	private int choice;
+	private int length;
+	
+	Game (int len, int ch)
+	{
+		choice = ch;
+		length = len;
+		switch (choice)
+		{
+		case 1:
+			guess = new Numbers(length);
+			break;
+		case 2:
+			guess = new Characters(length);
+			break;
+		}
+	}
+	
+	void play(Scanner scanner)
+	{
+		switch (choice)
+		{
+		case 1:
+			playNumbers(scanner);
+			break;
+		case 2:
+			playLatinLetters(scanner);
+			break;
+		}
+		System.out.println("Честито, Вие спечелихте!");
+	}
+	
+	private void playNumbers(Scanner scanner)
+	{
+		Result res;
+		do
+		{
+			String num = input(scanner);
+			ArrayList<Integer> ints = new ArrayList<Integer>();
+			for (int i = 0; i < num.length(); ++i)
+			{
+				ints.add(Character.getNumericValue(num.charAt(i)));
+			}
+			
+			res = guess.match(ints);
+			System.out.println(res.bulls + " бик(ове), " + res.cows + " крава(и)");
+			
+		} while(res.bulls != length);
+	}
+	
+	private void playLatinLetters(Scanner scanner)
+	{
+		Result res;
+		do
+		{
+			String num = input(scanner);
+			ArrayList<Character> chars = new ArrayList<Character>();
+			for (int i = 0; i < num.length(); ++i)
+			{
+				chars.add(num.charAt(i));
+			}
+			
+			res = guess.match(chars);
+			System.out.println(res.bulls + " бик(ове), " + res.cows + " крава(и)");
+			
+		} while(res.bulls != length);
+	}
+	
+	private String input(Scanner scanner)
+	{
+		String num;
+		
+		do
+		{
+			System.out.print("Въведете вашето предположение: ");
+			num = scanner.nextLine();
+		} while (!guess.validInput(num));
+		
+		return num;
+	}
+}
